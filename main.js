@@ -1,83 +1,101 @@
-// function nombreUtil( parametros-opcional ) { codigo }
-let edad; //variable global
-let anio;
+//ACCEDER AL DOM
+// 1 - id - trae un objeto
+let titulo = document.getElementById("titulo");
+console.log(titulo);
 
-function mostrarNombre(){
-    let nombre = prompt("Cual es tu nombre?");
-    alert(`Tu nombre es ${nombre}`);
-    anio = 2022;
+// 2 - clase - va a traer un array de objetos
+let parrafos = document.getElementsByClassName("parrafo");
+console.log(parrafos);
+
+// 3 - por etiqueta - trae un array
+let subtitulo = document.getElementsByTagName("h2");
+console.log(subtitulo);
+
+for(const parrafo of parrafos) {
+    console.log(parrafo.innerHTML)
 }
 
-//mostrarNombre();
+// 4 - por selector
+console.log(document.querySelector("#titulo"))
+console.log(document.querySelector(".parrafo"))
+console.log(document.querySelectorAll("div > p"))
+// function nombreUtil( parametros-opcional )
 
-function aprobarNota() {
-    let nota = parseInt(prompt("Cual fue tu nota?")); //variable local
-    if (nota > 4) {
-        alert("aprobaste");
-    } else {
-        alert("no aprobaste");
-    }
-}
-alert(nota)
-// aprobarNota()
+// function mostrarNombre(){
+//     let nombre = prompt("Cual es tu nombre?");
+//     alert(`Tu nombre es ${nombre}`);
+// }
 
-function suma(num1, num2) {
-    let sumas = num1 + num2; //console.log(6+9)
-    let resultado;
-    if (sumas > 20) {
-        resultado = sumas + 3;
-    } else {
-        resultado = sumas - 3;
-    }
-    // return resultado;
-}
-function suma1(num1, num2) {
-    let sumas = num1 + num2; //console.log(6+9)
-    let resultado;
-    if (sumas > 20) {
-        resultado = sumas + 3;
-    } else {
-        resultado = sumas - 3;
-    }
-    return resultado;
-}
-
-// let numero1 = parseInt(prompt("que numero queres sumar"));
-
-// suma(numero1, 9); //suma(6,9)
-// suma(50, 3);
-// let edad = parseInt(prompt("cual es tu edad"));
-// suma(edad, numero1);
-
-// let resultadoSuma = suma(4,12)
-// let resultadoSuma1 = suma1(4,12);
-
-// console.log(resultadoSuma1);
-// console.log(resultadoSuma);
-
+// mostrarNombre();
 
 function calcularDescuento(precio, porcentaje) {
-    let valorDescuento = precio * porcentaje /100;
-    let precioFinal = precio - valorDescuento;
+let valorDescuento = precio * porcentaje /100;
+let precioFinal = precio - valorDescuento;
 
-    return precioFinal;
+return precioFinal;
 }
 
-// let valorProducto = calcularDescuento(1000, 20);
-// console.log(valorProducto);
+// console.log(precioFinal); 
 
-function productoNuevo(){
-    let nombreProducto = prompt("Como se llama el producto?");
-    let precioProducto = parseFloat(prompt("cuanto cuesta?"));
-    let descuentoProducto = parseInt(prompt("cuanto despuesnto le das?"));
+//---------------- Carga de productos usuarios internos ---------------------//
 
-    let precioFinal = calcularDescuento(precioProducto, descuentoProducto);
-    let producto = console.log(`El producto nuevo es ${nombreProducto} y su precio final es ${precioFinal}`);
-    return producto;
+
+const listaProductos = [
+    { id:1 ,nombre: "Pack  x 5- clases de yogas", categoria:"Yoga", precio: 1500}, 
+    { id:2 ,nombre: "Clase de yoga individual", categoria:"Yoga", precio: 300},
+    { id:3 ,nombre: "7 Meditaciones dinamicas con Gus",categoria:"Meditacion", precio: 4000},
+    { id:4 ,nombre: "Reescribir la mente", categoria:"Biocodificacion", precio: 2000},
+    { id:5 ,nombre: "Alineacion de Chackras - 12 dias", categoria:"Meditacion", precio: 3500},
+];
+
+class Producto {
+    constructor(nombre, categoria, precio) {
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.precio = precio
+    }
+}
+const guardarProducto = () => {
+    let nombre = document.getElementById("nombre").value;
+    let categoria = document.getElementById("categoria").value;
+    let precio = parseFloat(document.getElementById("precio").value);
+
+    let nuevoProd = new Producto(nombre, categoria, precio);
+    listaProductos.push(nuevoProd);
 }
 
-//productoNuevo();
+console.log(listaProductos);
 
-// Esriban una funcion que acepte un numero y les diga si es un numero primo o no
-// un numero primo, es un numero que se divide solo por si mismo y por 1
-// 1 - no es primo
+//FOREACH - 
+listaProductos.forEach((producto)=> {
+    console.log(`este producto es ${producto.nombre} y su precio es $${producto.precio}`)
+});
+
+// listaProductos.forEach((producto) => {
+//     let contenedorProd = document.createElement("div");
+//     contenedorProd.className = 'producto';
+//     contenedorProd.innerHTML = `
+//                     <h3 id='${producto.id}'>${producto.nombre}</h3>
+//                     <p>${producto.categoria}</p>
+//                     <p>$${producto.precio}</p>
+//                     `;
+//     document.querySelector("#productos").append(contenedorProd);
+// })
+//---------------- Busqueda de productos en la web ---------------------//
+
+//SOME 
+let buscarPorPrecio = listaProductos.some(producto => producto.precio > 3000 < 1000);
+
+console.log(buscarPorPrecio)
+
+//MAP - crea otro array con alguna transformacion
+let listaNueva = listaProductos.map(producto => producto.precio = producto.precio * 1.07);
+
+console.log(listaNueva)
+
+//REDUCE - resumir el array a un valor - acepta 2 parametros
+
+const totalCarrito = listaProductos.reduce((acumulador, producto)=> {
+   return acumulador + producto.precio;
+}, 0);
+console.log(`El total es  $${totalCarrito}`);
