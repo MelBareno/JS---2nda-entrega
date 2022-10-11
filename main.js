@@ -18,7 +18,8 @@ for(const parrafo of parrafos) {
 // 4 - por selector
 console.log(document.querySelector("#titulo"))
 console.log(document.querySelector(".parrafo"))
-console.log(document.querySelectorAll("div > p"))
+
+
 // function nombreUtil( parametros-opcional )
 
 // function mostrarNombre(){
@@ -71,16 +72,17 @@ listaProductos.forEach((producto)=> {
     console.log(`este producto es ${producto.nombre} y su precio es $${producto.precio}`)
 });
 
-// listaProductos.forEach((producto) => {
-//     let contenedorProd = document.createElement("div");
-//     contenedorProd.className = 'producto';
-//     contenedorProd.innerHTML = `
-//                     <h3 id='${producto.id}'>${producto.nombre}</h3>
-//                     <p>${producto.categoria}</p>
-//                     <p>$${producto.precio}</p>
-//                     `;
-//     document.querySelector("#productos").append(contenedorProd);
-// })
+listaProductos.forEach((producto) => {
+let contenedorProd = document.createElement("div");
+ contenedorProd.className = 'producto';
+contenedorProd.innerHTML = `
+    <h3 id='${producto.id}'>${producto.nombre}</h3>
+    <p>${producto.categoria}</p>
+    <p>$${producto.precio}</p>
+ `;
+document.querySelector("#productos").append(contenedorProd);
+})
+
 //---------------- Busqueda de productos en la web ---------------------//
 
 //SOME 
@@ -88,6 +90,42 @@ let buscarPorPrecio = listaProductos.some(producto => producto.precio > 3000 < 1
 
 console.log(buscarPorPrecio)
 
+//Parametro obtenido de boton - igual a categoria 
+function filterProduct(value) {
+    //Button class code
+    let buttons = document.querySelectorAll(".button-value");
+    buttons.forEach((button) => {
+      //check if value equals innerText
+      if (value.toUpperCase() == button.innerText.toUpperCase()) {
+        button.classList.add("active");
+      } else {
+        button.classList.remove("active");
+      }
+    });
+}
+
+//Search button click
+document.getElementById("search").addEventListener("click", () => {
+    //inicializados
+    let searchInput = document.getElementById("search-input").value;
+    let elements = document.querySelectorAll(".producto.nombre");
+ 
+  
+    //loop through all elements
+    elements.forEach((element, index) => {
+      //check if text includes the search value
+      if (element.innerText.includes(searchInput.toUpperCase())) {
+        //mostrar elemento
+        listaProductos[index].classList.remove("hide");
+      } else {
+        //esconder otros
+        listaProductos[index].classList.add("hide");
+      }
+    });
+  });
+  
+  
+// -----------------Carrito de compras---------------------//
 //MAP - crea otro array con alguna transformacion
 let listaNueva = listaProductos.map(producto => producto.precio = producto.precio * 1.07);
 

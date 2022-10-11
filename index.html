@@ -2,11 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Segunda Entrega</title>
+	<title>Rinconcito Verde | Market Place</title>
 </head>
+    
 <body>
+    <h1 id="titulo">Bienvenidos</h1>
+    <div class="col-sm-9">	
+        <!-- inicio main body-->
+        <section id="main_body">
+            <div id="search-container">
+                <input
+                  type="search"
+                  id="search-input"
+                  placeholder="Search product name here.."
+                />
+                <button id="search">Search</button>
+            </div>   
+            <div id="buttons">
+                <button class="button-value" onclick="filterProduct('all')">All</button>
+                
+            <article>
+                <h4 >Despensa</h4>
+                <p > Encuentra todos los elementos para tu casa </p>
+            </article> 
+            <article>
+                <h4 > Clases grabadas</h4>
+                <p > En esta seccion puedes encontrar clases de yoga y pilates, te esperamos!</p>
+                <form action="">
+                    <input type="text" id="nombre"/>
+                    <input type="text" id="categoria"/>
+                    <input type="number" id="precio"/>
+        
+                    <button>Enviar</button>
+                </form>
+            </article>
+        </section>
+    </div>
+    <div id="productos"></div>
     <script src="./main.js"></script>
-</body>
-</html>
+        <!-- cierre main body-->
+    </div>
+ 
+       
+    </body>
+    </html>
